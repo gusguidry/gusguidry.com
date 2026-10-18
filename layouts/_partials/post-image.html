@@ -1,0 +1,20 @@
+{{- /*
+  Returns a post's front-matter image as a Hugo resource, or nothing.
+
+  Front matter (all optional — no image, no change anywhere):
+    image: "photo.png"          # file in the post's folder (page bundle)
+    imageAlt: "What it shows"   # for screen readers; defaults to the title
+    imageCaption: "Credit line" # small caps under the homepage lead plate
+    imageCrop: "top"            # where share previews crop from; default "smart"
+
+  Used by the homepage lead story and the Open Graph share preview in head.html.
+*/ -}}
+{{- $res := false -}}
+{{- with .Params.image -}}
+  {{- with $.Resources.Get . -}}
+    {{- if and (eq .ResourceType "image") (not (in (slice "svg" "gif") .MediaType.SubType)) -}}
+      {{- $res = . -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $res -}}

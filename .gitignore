@@ -12,3 +12,4 @@ resources/
 static/pagefind/
 drafts/
 CLAUDE.md
+.preview-tmp/

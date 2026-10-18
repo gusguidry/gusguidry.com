@@ -1,0 +1,43 @@
+{{- /*
+  Image render hook — turns plain Markdown images into captioned plates.
+
+  Usage, in any post:
+    ![What the image shows, for screen readers](my-picture.png "Caption set beneath in small caps")
+
+  - Put the image file in the post's own folder (a page bundle:
+    content/posts/<post>/index.en.md + my-picture.png) and Hugo will
+    resize it to fit the reading column and re-encode it as WebP.
+  - The "quoted title" becomes the caption. Leave it off for no caption.
+  - Remote URLs and files in static/ still work; they are just served as-is.
+  - SVGs and GIFs are passed through untouched (resizing would break them).
+*/ -}}
+{{- $src := .Destination -}}
+{{- $alt := .PlainText -}}
+{{- $caption := .Title -}}
+{{- $w := 0 -}}{{- $h := 0 -}}
+{{- with .Page.Resources.Get .Destination -}}
+  {{- if and (eq .ResourceType "image") (not (in (slice "svg" "gif") .MediaType.SubType)) -}}
+    {{- /* 1320px = the 66ch column at 2x pixel density. Never upscale. */ -}}
+    {{- $img := . -}}
+    {{- if gt .Width 1320 -}}
+      {{- $img = .Resize "1320x webp q80 Lanczos" -}}
+    {{- else -}}
+      {{- $img = .Process "webp q80" -}}
+    {{- end -}}
+    {{- $src = $img.RelPermalink -}}
+    {{- $w = $img.Width -}}{{- $h = $img.Height -}}
+  {{- else -}}
+    {{- $src = .RelPermalink -}}
+  {{- end -}}
+{{- end -}}
+{{- $tag := printf `<img src="%s" alt="%s"%s loading="lazy" decoding="async">` $src $alt (cond (gt $w 0) (printf ` width="%d" height="%d"` $w $h) "") -}}
+{{- if .IsBlock -}}
+<figure class="plate">
+	<div class="plate-frame">{{ $tag | safeHTML }}</div>
+	{{- with $caption }}
+	<figcaption>{{ . | markdownify }}</figcaption>
+	{{- end }}
+</figure>
+{{- else -}}
+{{ $tag | safeHTML }}
+{{- end -}}

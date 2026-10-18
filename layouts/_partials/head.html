@@ -12,7 +12,17 @@
   <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ with .Summary }}{{ . | plainify | truncate 160 }}{{ else }}{{ .Site.Params.defaultDescription }}{{ end }}{{ end }}">
   <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
   <meta property="og:url" content="{{ .Permalink }}">
+  {{- with partial "post-image.html" . }}
+  {{- $anchor := $.Params.imageCrop | default "smart" | title }}
+  {{- $og := .Fill (printf "1200x630 jpg q85 %s" $anchor) }}
+  <meta property="og:image" content="{{ $og.Permalink }}">
+  <meta property="og:image:width" content="{{ $og.Width }}">
+  <meta property="og:image:height" content="{{ $og.Height }}">
+  <meta property="og:image:alt" content="{{ $.Params.imageAlt | default $.Title }}">
+  <meta name="twitter:card" content="summary_large_image">
+  {{- else }}
   <meta property="og:image" content="{{ "images/repository-open-graph-template.png" | absURL }}">
+  {{- end }}
   {{ if .IsPage }}
   <meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
   <meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">

@@ -1513,6 +1513,47 @@ footer {
 	letter-spacing: 0.04em;
 }
 
+/* --- Plates (images in posts) ---
+   Framed like the video embeds: a hairline rule and a recessed mat, the way
+   a journal tips in a photographic plate. No shadows, no rounded corners. */
+.plate {
+	max-width: var(--measure);
+	margin: 2em auto;
+}
+
+.plate-frame {
+	border: 1px solid var(--rule);
+	padding: 0.35em;
+	background: var(--paper-sunk);
+	line-height: 0;
+}
+
+.plate-frame img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.plate figcaption {
+	margin-top: 0.6em;
+	text-align: center;
+	color: var(--ink-faint);
+	font-size: 0.9em;
+	font-variant-caps: small-caps;
+	font-feature-settings: "smcp" 1;
+	letter-spacing: 0.04em;
+}
+
+/* The lead story's plate on the front page — the only picture the front
+   page carries, as on a real broadsheet. The headline lists stay text. */
+.front-lead-plate {
+	margin: 1.25em auto 1.5em;
+}
+
+.front-lead-plate .plate-frame {
+	display: block;
+}
+
 /* --- Front Page --- */
 
 .front-welcome {

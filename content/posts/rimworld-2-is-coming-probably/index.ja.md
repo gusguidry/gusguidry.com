@@ -6,6 +6,12 @@ isCJKLanguage: true
 date: 2026-10-15T12:25:00-05:00
 description: "Ludeon は RimWorld を自社製の Waylith Engine へ載せ替え、DLC は一切添えずに出した。2,000時間近くを費やした私は、これを予兆と読む——RimWorld 2 は来る。そして、あなたの家は宇宙船になる。"
 draft: false
+image: "ludeon-waylith-announcement.png"
+imageAlt: "Waylith Engine とアップデート 1.7 を発表する Ludeon Studios のブログ記事"
+imageCaption: "10月12日、Ludeon が Waylith Engine を発表。出典：[Ludeon Studios](https://ludeon.com/blog/2026/10/announcing-the-waylith-engine-and-update-1-7/)"
+imageCrop: "top"
+build:
+  publishResources: false # ship only the resized WebP, not the original image
 title: "RimWorld 2 は来る（おそらく）"
 categories:
   - videogames
@@ -30,6 +36,8 @@ tags:
 ## 1.7 の正体
 
 10月12日、Ludeon はアップデート 1.7 を発表した。見出しは、RimWorld が Unity を離れ、Ludeon が自社で開発したゲームエンジン **Waylith Engine** へ移るというものである。本人たちの説明によれば、見た目も挙動もまったく同じまま、動作だけが2〜4倍速くなる。現在は Steam の unstable ベータブランチで公開されている。
+
+![Ludeon Studios のブログ記事「Announcing the Waylith Engine and Update 1.7」（2026年10月12日）。RimWorld のコロニーのスクリーンショット付き。](ludeon-waylith-announcement.png "10月12日の発表記事。出典：[Ludeon Studios](https://ludeon.com/blog/2026/10/announcing-the-waylith-engine-and-update-1-7/)")
 
 以上がアップデートの全部である。新しい生物も、遺伝子も、バイオームもなく、既存 DLC の調整すらない。Ludeon はゲームの土台だけを入れ替え、ほかには何も触らなかった。
 

@@ -7,6 +7,7 @@
 </div>
 
 {{ with index $posts 0 }}
+{{ $post := . }}
 <section class="front-lead">
   <p class="front-kicker">{{ T "front-latest" }}</p>
   <h2 class="front-lead-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
@@ -14,6 +15,13 @@
   <p class="front-lead-dateline">
     {{ if not .Date.IsZero }}<time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time>&thinsp;·&thinsp; {{ end }}{{ T "reading-time" .ReadingTime }}
   </p>
+  {{ with partial "post-image.html" . }}
+  {{ $img := cond (gt .Width 1320) (.Resize "1320x webp q80 Lanczos") (.Process "webp q80") }}
+  <figure class="plate front-lead-plate">
+    <a class="plate-frame" href="{{ $post.RelPermalink }}"><img src="{{ $img.RelPermalink }}" alt="{{ $post.Params.imageAlt | default $post.Title }}" width="{{ $img.Width }}" height="{{ $img.Height }}" decoding="async"></a>
+    {{ with $post.Params.imageCaption }}<figcaption>{{ . | markdownify }}</figcaption>{{ end }}
+  </figure>
+  {{ end }}
   <div class="front-lead-excerpt">{{ replaceRE `(?s)<h[1-6][^>]*>.*?</h[1-6]>` "" .Summary | safeHTML }}</div>
   <p class="front-continue"><a href="{{ .RelPermalink }}">{{ T "front-continue" | title }} →</a></p>
 </section>

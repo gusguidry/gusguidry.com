@@ -44,6 +44,11 @@ tableOfContents = { endLevel = 4 }
 [markup.goldmark.renderer]
 unsafe = true # Allows HTML in Markdown if needed
 
+[markup.goldmark.parser]
+# An image on a line of its own renders as a captioned <figure> (see
+# layouts/_markup/render-image.html) instead of being wrapped in a <p>.
+wrapStandAloneImageWithinParagraph = false
+
 [markup.highlight]
 codeFences = true      # Highlight code within ``` fences
 guessSyntax = true     # Try to guess language if not specified

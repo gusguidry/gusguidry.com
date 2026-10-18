@@ -5,6 +5,12 @@ aliases:
 date: 2026-10-15T12:25:00-05:00
 description: "Ludeon just swapped RimWorld onto its own Waylith Engine and shipped no DLC alongside it. After nearly 2,000 hours, I read that as a sign: RimWorld 2 is coming, and your ship will be your home."
 draft: false
+image: "ludeon-waylith-announcement.png"
+imageAlt: "Ludeon Studios' blog post announcing the Waylith Engine and Update 1.7"
+imageCaption: "Ludeon announces the Waylith Engine, October 12. Via [Ludeon Studios](https://ludeon.com/blog/2026/10/announcing-the-waylith-engine-and-update-1-7/)"
+imageCrop: "top"
+build:
+  publishResources: false # ship only the resized WebP, not the original image
 title: "RimWorld 2 Is Coming (Probably)"
 categories:
   - videogames
@@ -29,6 +35,8 @@ I am a devoted fan, but not a daily speculator. I don't comb patch notes for run
 ## What 1.7 Actually Is
 
 On October 12, Ludeon announced update 1.7. Its headline is that RimWorld is leaving Unity for the **Waylith Engine**, a game engine Ludeon built in-house. By their account, the game looks and plays exactly the same but runs two to four times faster. It's on Steam's unstable beta branch now.
+
+![Ludeon Studios blog post titled "Announcing the Waylith Engine and Update 1.7," dated October 12, 2026, with a screenshot of a RimWorld colony.](ludeon-waylith-announcement.png "The announcement itself, October 12. Via [Ludeon Studios](https://ludeon.com/blog/2026/10/announcing-the-waylith-engine-and-update-1-7/)")
 
 That is the whole update. There are no new creatures, genes, biomes, or tweaks to any DLC. Ludeon swapped out the game's foundation and nothing else.
 
