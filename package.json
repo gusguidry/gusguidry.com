@@ -5,7 +5,7 @@
   "scripts": {
     "build": "hugo --cleanDestinationDir && bunx pagefind --site public",
     "index": "bunx pagefind --site public",
-    "dev": "hugo --quiet && bunx pagefind --site public --output-path static/pagefind && hugo server"
+    "dev": "hugo --quiet --cleanDestinationDir && bunx pagefind --site public --output-path static/pagefind && hugo server"
   },
   "devDependencies": {
     "pagefind": "^1.3.0",

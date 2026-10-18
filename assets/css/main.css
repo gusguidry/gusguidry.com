@@ -1581,6 +1581,10 @@ footer {
 
 .front-all { text-align: right; }
 
+/* The front page's headlines are headlines, not numbered sections */
+.front-lead-title::before,
+.front-section-head::before { content: none; }
+
 /* --- Reply by email (end of posts) --- */
 
 .post-reply {
@@ -1614,4 +1618,16 @@ footer {
 	font-style: italic;
 	font-size: 0.85em;
 	color: var(--ink-faint);
+}
+
+/* --- Narrow screens ---
+   The § and ¶ marks hang in the left margin on desktop. Phones have no
+   margin to spare, so the § steps inline and the hover-only ¶ is dropped. */
+@media (max-width: 44rem) {
+	h2::before {
+		position: static;
+		margin-right: 0.3em;
+		vertical-align: 0.12em;
+	}
+	.post-body p::before { content: none; }
 }
