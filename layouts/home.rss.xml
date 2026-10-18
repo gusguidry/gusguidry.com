@@ -1,0 +1,32 @@
+{{- /* Site RSS feed at /feed.xml — posts only, full text. */ -}}
+{{- $pages := where site.RegularPages "Section" "posts" | first 20 -}}
+{{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ site.Title }}</title>
+    <link>{{ .Permalink }}</link>
+    <description>{{ site.Params.defaultDescription }}</description>
+    <language>{{ site.Language.Locale }}</language>
+    {{- with $pages }}
+    <lastBuildDate>{{ (index . 0).Lastmod.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</lastBuildDate>
+    {{- end }}
+    {{- with .OutputFormats.Get "rss" }}
+    {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType.Type | safeHTML }}
+    {{- end }}
+    {{- range $pages }}
+    <item>
+      <title>{{ .Title }}</title>
+      <link>{{ .Permalink }}</link>
+      <guid>{{ .Permalink }}</guid>
+      <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
+      {{- with .Params.author }}
+      <author>{{ . }}</author>
+      {{- end }}
+      {{- range .GetTerms "tags" }}
+      <category>{{ .LinkTitle }}</category>
+      {{- end }}
+      <description>{{ .Content | replaceRE `(href|src)="/([^/])` (printf `$1="%s/$2` (strings.TrimSuffix "/" site.BaseURL)) | transform.XMLEscape | safeHTML }}</description>
+    </item>
+    {{- end }}
+  </channel>
+</rss>

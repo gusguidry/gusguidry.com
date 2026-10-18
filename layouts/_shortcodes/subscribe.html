@@ -1,0 +1,9 @@
+<!-- layouts/shortcodes/subscribe.html -->
+<script src="https://apis.google.com/js/platform.js"></script>
+
+<div class="g-ytsubscribe"
+	data-channelid="{{ .Get "channelid" }}"
+	data-layout="{{ .Get "layout" | default "default" }}"
+	data-count="{{ .Get "count" | default "default" }}">
+</div>
+

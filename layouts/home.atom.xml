@@ -1,0 +1,39 @@
+{{- /* Site Atom feed at /atom.xml — same posts as the RSS feed, full text. */ -}}
+{{- $pages := where site.RegularPages "Section" "posts" | first 20 -}}
+{{- $iso := "2006-01-02T15:04:05Z07:00" -}}
+{{- printf "<?xml version=\"1.0\" encoding=\"utf-8\"?>" | safeHTML }}
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="{{ site.Language.Locale }}">
+  <title>{{ site.Title }}</title>
+  <subtitle>{{ site.Params.defaultDescription }}</subtitle>
+  <link href="{{ .Permalink }}" />
+  {{- with .OutputFormats.Get "atom" }}
+  {{ printf "<link rel=\"self\" type=%q href=%q />" .MediaType.Type .Permalink | safeHTML }}
+  {{- end }}
+  <id>{{ .Permalink }}</id>
+  {{- with $pages }}
+  <updated>{{ (index . 0).Lastmod.Format $iso }}</updated>
+  {{- end }}
+  <author>
+    <name>Gus Guidry</name>
+    <uri>{{ .Permalink }}</uri>
+  </author>
+  {{- range $pages }}
+  <entry>
+    <title>{{ .Title }}</title>
+    <link href="{{ .Permalink }}" />
+    <id>{{ .Permalink }}</id>
+    <published>{{ .Date.Format $iso }}</published>
+    <updated>{{ .Lastmod.Format $iso }}</updated>
+    {{- with .Params.author }}
+    <author><name>{{ . }}</name></author>
+    {{- end }}
+    {{- range .GetTerms "tags" }}
+    <category term="{{ .LinkTitle }}" />
+    {{- end }}
+    {{- with .Description }}
+    <summary>{{ . }}</summary>
+    {{- end }}
+    <content type="html">{{ .Content | replaceRE `(href|src)="/([^/])` (printf `$1="%s/$2` (strings.TrimSuffix "/" site.BaseURL)) | transform.XMLEscape | safeHTML }}</content>
+  </entry>
+  {{- end }}
+</feed>

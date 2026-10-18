@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# The machines came for our data.
+# Some of us fought back with passive-aggressive text files.
+# This website is protected by sarcasm and poor life choices.
+# - Gus
+# P.S. If you're Bing, just leave. Everyone's tired.

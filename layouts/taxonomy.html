@@ -1,0 +1,14 @@
+{{define "main"}}
+
+{{.Content}}
+
+<ul class="taxonomy-list">
+  {{- range .Pages.ByTitle -}}
+  <li class="taxonomy-item">
+    <a href="{{ .RelPermalink }}">{{ .Title | title }}</a>
+    <span class="taxonomy-count">{{ len .Pages }}</span>
+  </li>
+  {{- end}}
+</ul>
+
+{{end}}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.gusguidry.library-sync</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/bin/python3</string>
+        <string>/Users/gus/Developer/gusguidry.com/scripts/build_library.py</string>
+    </array>
+
+    <!-- Every Monday at 6:00 AM. Change Weekday/Hour/Minute to taste --
+         Weekday is 0=Sunday .. 6=Saturday. Drop the whole dict and use
+         <key>StartInterval</key><integer>SECONDS</integer> instead if you'd
+         rather run it every N seconds/hours than on a calendar schedule. -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Weekday</key>
+        <integer>1</integer>
+        <key>Hour</key>
+        <integer>6</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string>/Users/gus/Library/Logs/gusguidry-library-sync.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/gus/Library/Logs/gusguidry-library-sync.log</string>
+
+    <key>RunAtLoad</key>
+    <false/>
+</dict>
+</plist>

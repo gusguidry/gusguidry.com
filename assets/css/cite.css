@@ -1,0 +1,174 @@
+/*
+ * Citation widget — dressed to match the press.
+ * Uses the shared design tokens from main.css so it reads cleanly in
+ * both the parchment and night editions.
+ */
+
+/* Sits centered at the foot of the article, just above the prev/next bar,
+   whose top rule does the separating. Opens into a left-aligned panel. */
+.cite-section {
+  margin: 2.25rem 0 0;
+  text-align: center;
+}
+
+.cite-section + .post-nav {
+  margin-top: 1.75em;
+}
+
+.cite-body {
+  text-align: center;
+}
+
+.cite-body .cite-text {
+  text-align: left;
+}
+
+.cite-details > summary {
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-variant-caps: small-caps;
+  font-feature-settings: "smcp" 1;
+  letter-spacing: 0.1em;
+  font-size: 0.82em;
+  color: var(--accent);
+  list-style: none;
+  display: inline-block;
+}
+
+.cite-details > summary::-webkit-details-marker { display: none; }
+
+.cite-details > summary::before {
+  content: '\203A\A0';            /* › */
+  color: var(--accent);
+}
+
+.cite-details[open] > summary::before {
+  content: '\2039\A0';            /* ‹ */
+}
+
+.cite-body {
+  margin-top: 0.9rem;
+}
+
+.cite-tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.6rem;
+}
+
+.cite-tab {
+  background: transparent;
+  border: 1px solid var(--rule);
+  color: var(--ink-faint);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-variant-caps: small-caps;
+  font-feature-settings: "smcp" 1;
+  letter-spacing: 0.06em;
+  font-size: 0.85em;
+  padding: 0.15em 0.7em;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.cite-tab:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.cite-tab.active {
+  color: var(--ink);
+  border-color: var(--accent);
+}
+
+.cite-panel {
+  display: none;
+}
+
+.cite-panel.active {
+  display: block;
+}
+
+/* The citation itself — set off in a recessed panel with a gold rule,
+   so it stays legible against either ground. */
+.cite-text {
+  font-family: var(--font-body);
+  font-size: 0.95em;
+  font-style: italic;
+  color: var(--ink-body);
+  line-height: 1.5;
+  margin: 0.5rem 0;
+  padding: 0.75rem 0.9rem;
+  background: var(--paper-sunk);
+  border-left: 2px solid var(--accent);
+  word-break: break-word;
+}
+
+/* BibTeX / LaTeX entry — monospace, whitespace preserved, not italic */
+.cite-text.cite-code {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 0.82em;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  word-break: normal;
+  overflow-x: auto;
+  color: var(--ink);
+}
+
+.cite-copy-btn {
+  background: transparent;
+  border: 1px solid var(--rule);
+  color: var(--ink);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-variant-caps: small-caps;
+  font-feature-settings: "smcp" 1;
+  letter-spacing: 0.06em;
+  font-size: 0.85em;
+  padding: 0.2em 0.85em;
+  margin-top: 0.6rem;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.cite-copy-btn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.cite-note {
+  font-variant-caps: small-caps;
+  font-feature-settings: "smcp" 1;
+  letter-spacing: 0.06em;
+  font-size: 0.78em;
+  color: var(--ink-faint);
+  margin: 0.6rem 0 0;
+}
+
+/* Sarcastic toast */
+
+.cite-toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(1rem);
+  background: var(--paper-sunk);
+  color: var(--ink-body);
+  border: 1px solid var(--accent);
+  padding: 0.7em 1.2em;
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 0.95em;
+  max-width: min(480px, 90vw);
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.cite-toast--visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}

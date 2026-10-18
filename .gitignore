@@ -1,0 +1,14 @@
+.DS_Store
+.claude/
+.claude-tmp/
+.frontmatter/
+.hugo_build.lock
+.obsidian/
+.vscode/
+node_modules/
+package-lock.json
+public/
+resources/
+static/pagefind/
+drafts/
+CLAUDE.md

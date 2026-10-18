@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="{{ site.Language.Locale }}">
+	{{ partial "head.html" . }}
+	<body>
+		<noscript><p style="text-align:center;padding:0.5em;font-size:0.85em;opacity:0.7">JavaScript is disabled. Impressive commitment to the bit. The site mostly works anyway.</p></noscript>
+		{{ partial "header.html" . }}
+		<main>
+      {{ if not .IsHome }}<h1 data-pagefind-meta="title">{{ .Title | title }}</h1>{{ end }}
+      {{ if and .IsPage .Description }}<p class="post-subtitle">{{ .Description }}</p>{{ end }}
+		  {{ partial "breadcrumb.html" . }}
+
+			<article>
+
+		  {{ block "main" . }}{{ end }}
+
+			</article>
+		</main>
+		{{ partial "footer.html" . }}
+		{{ $navJs := resources.Get "js/navigation.js" | minify | fingerprint }}
+		<script src="{{ $navJs.Permalink }}" integrity="{{ $navJs.Data.Integrity }}" defer></script>
+		{{ $js := resources.Get "js/main.js" | minify | fingerprint }}
+		<script src="{{ $js.Permalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+	</body>
+</html>

@@ -1,0 +1,77 @@
+/* Copy Button Styling */
+.highlight {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.copy-code-button {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    padding: 0.2rem 0.55rem;
+    font-size: 0.72rem;
+    color: #555;
+    background-color: rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.15s ease-in-out, background-color 0.15s;
+    z-index: 10;
+    font-family: inherit;
+}
+
+.highlight:hover .copy-code-button {
+    opacity: 1;
+}
+
+.copy-code-button:hover {
+    background-color: rgba(0, 0, 0, 0.12);
+}
+
+.copy-code-button:active {
+    transform: scale(0.95);
+}
+
+.copy-code-button.copied {
+    color: #2d7a2d;
+    border-color: #2d7a2d;
+    background-color: rgba(45, 122, 45, 0.08);
+    opacity: 1;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .copy-code-button {
+        color: #bbb;
+        background-color: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.15);
+    }
+    :root:not([data-theme="light"]) .copy-code-button:hover {
+        background-color: rgba(255, 255, 255, 0.14);
+    }
+    :root:not([data-theme="light"]) .copy-code-button.copied {
+        color: #b8bb26;
+        border-color: #b8bb26;
+        background-color: rgba(184, 187, 38, 0.1);
+    }
+}
+
+:root[data-theme="dark"] .copy-code-button {
+    color: #bbb;
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+:root[data-theme="dark"] .copy-code-button:hover {
+    background-color: rgba(255, 255, 255, 0.14);
+}
+:root[data-theme="dark"] .copy-code-button.copied {
+    color: #b8bb26;
+    border-color: #b8bb26;
+    background-color: rgba(184, 187, 38, 0.1);
+}
+
+/* Ensure table layout doesn't obscure the button */
+.highlight table {
+    width: 100%;
+}

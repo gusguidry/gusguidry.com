@@ -1,0 +1,13 @@
+{{- /* /latest/ — redirects to the newest post. Rebuilt with the site, so it never goes stale. */ -}}
+{{- $p := index (where site.RegularPages "Section" "posts") 0 -}}
+<!DOCTYPE html>
+<html lang="{{ site.Language.Locale }}">
+<head>
+<title>{{ $p.Title }}</title>
+<link rel="canonical" href="{{ $p.Permalink }}">
+<meta name="robots" content="noindex">
+<meta charset="utf-8">
+<meta http-equiv="refresh" content="0; url={{ $p.Permalink }}">
+</head>
+<body><a href="{{ $p.Permalink }}">{{ $p.Title }}</a></body>
+</html>

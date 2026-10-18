@@ -1,0 +1,20 @@
+{{define "main"}}
+
+{{.Content}}
+
+<ul class="post-list">
+  {{range .Pages}}
+  <li class="post-list-item">
+    <div class="post-list-main">
+      <a class="post-list-title" href="{{ .RelPermalink }}">{{.Title | title }}{{ if .IsSection }} /{{ end }}</a>
+      {{ if .Description }}<p class="post-list-desc">{{ .Description }}</p>{{ end }}
+    </div>
+    <div class="post-list-meta">
+      {{ if not .Date.IsZero }}<time>{{ time.Format "Jan 2006" .Date }}</time>{{ end }}
+      {{ if .Draft }}<span class="post-list-draft">draft</span>{{ end }}
+    </div>
+  </li>
+  {{ end }}
+</ul>
+
+{{end}}

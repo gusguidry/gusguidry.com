@@ -1,0 +1,75 @@
+{{define "main"}}
+{{/* Root-level pages (about, now, uses…) have no section; posts and Shikoku entries do.
+     Pages get no dateline, nav, citation or related list: they are fixtures of the site, not entries in a stream. */}}
+{{ $isPage := eq .Section "" }}
+
+{{ if not $isPage }}
+<div class="metadata">
+  <p class="meta-byline">by {{ with .Params.author }}{{ . }}{{ else }}<a href="{{ "/about/" | relLangURL }}">Gus Guidry</a>{{ end }}</p>
+  <p class="meta-stats">
+    {{ if not .Date.IsZero }}<time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "2 January 2006" }}</time>{{ if ne (.Date.Format "2006-01-02") (.Lastmod.Format "2006-01-02") }}&thinsp;·&thinsp; revised <time datetime="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Lastmod.Format "2 January 2006" }}</time>{{ end }}&thinsp;·&thinsp; {{ end }}{{ T "reading-time" .ReadingTime }}&thinsp;·&thinsp; {{ .WordCount }} {{ T "word-count-unit" .WordCount }}
+  </p>
+  {{ if .Params.tags }}
+  <p class="meta-tags">{{ range $i, $t := (.GetTerms "tags") }}{{ if $i }}, {{ end }}<a href="{{ $t.RelPermalink }}">{{ $t.LinkTitle }}</a>{{ end }}</p>
+  {{ end }}
+</div>
+{{ end }}
+
+<!--Table of contents-->
+
+{{ if and (ne .Params.toc false) (strings.Contains .TableOfContents "<li>") }}{{ .TableOfContents }}{{ end }}
+
+<!--Content-->
+<div class="post-body" data-pagefind-body>
+{{ .Content }}
+</div>
+
+{{ if $isPage }}
+<!--Last updated (pages only)-->
+{{ if not .Lastmod.IsZero }}
+<p class="page-updated">{{ T "last-updated" }} <time datetime="{{ .Lastmod.Format "2006-01-02" }}">{{ .Lastmod.Format "2 January 2006" }}</time></p>
+{{ end }}
+{{ else }}
+<!--Reply by email: the comment section, minus the comment section-->
+<p class="post-reply">{{ T "reply-prompt" }} <a href="mailto:gus@gusguidry.com?subject={{ printf "Re: %s" .Title }}">gus@gusguidry.com</a></p>
+
+<!--Cite: closes out the article, before the navigation-->
+{{ partial "cite.html" . }}
+
+<!--Prev/Next-->
+{{ $sectionPages := where .Site.RegularPages "Section" .Section }}
+{{ $urls := slice }}{{ range $sectionPages }}{{ $urls = $urls | append .RelPermalink }}{{ end }}
+<nav class="post-nav" data-posts='{{ $urls | jsonify }}'>
+  {{ with index $sectionPages (sub (len $sectionPages) 1) }}
+  <a class="post-nav-btn" href="{{ .RelPermalink }}" title="First: {{ .Title }}">«</a>
+  {{ end }}
+  {{ with .NextInSection }}
+  <a class="post-nav-btn" href="{{ .RelPermalink }}" title="{{ .Title }}">‹ {{ T "Prev" | title }}</a>
+  {{ end }}
+  <button class="post-nav-btn post-nav-random" onclick="goRandom(this)" title="Random post">✦</button>
+  {{ with .PrevInSection }}
+  <a class="post-nav-btn" href="{{ .RelPermalink }}" title="{{ .Title }}">{{ T "Next" | title }} ›</a>
+  {{ end }}
+  {{ with index $sectionPages 0 }}
+  <a class="post-nav-btn" href="{{ .RelPermalink }}" title="Last: {{ .Title }}">»</a>
+  {{ end }}
+</nav>
+<script>
+function goRandom(btn) {
+  const posts = JSON.parse(btn.closest('[data-posts]').dataset.posts);
+  const others = posts.filter(p => p !== window.location.pathname);
+  if (others.length) window.location.href = others[Math.floor(Math.random() * others.length)];
+}
+</script>
+
+<!--Related-->
+{{ $related := .Site.RegularPages.Related . | first 5 }} {{ with $related }}
+<h3>{{ T "related" | title }}</h3>
+<ul>
+  {{ range . }}
+  <li><a href="{{ .RelPermalink }}">{{ .Title | title }}</a></li>
+  {{end}}
+</ul>
+{{ end }}
+{{ end }}
+{{ end }}

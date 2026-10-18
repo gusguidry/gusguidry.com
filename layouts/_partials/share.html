@@ -1,0 +1,14 @@
+<h3>Share</h3>
+<a href="https://twitter.com/intent/tweet?url={{ .Permalink | urlize }}&text={{ .Title | urlize }}" target="_blank" class="share-button twitter">
+  <img src="{{ "images/twitter-icon.png" | relURL }}" alt="Share on Twitter">
+  <span>Twitter</span>
+</a>
+<a href="https://www.facebook.com/sharer/sharer.php?u={{ .Permalink | urlize }}" target="_blank" class="share-button facebook">
+  <img src="{{ "images/facebook-icon.png" | relURL }}" alt="Share on Facebook">
+  <span>Facebook</span>
+</a>
+<a href="mailto:?subject=Check out this post&body={{ .Title | urlize }}: {{ .Permalink | urlize }}" class="share-button email">
+	<img src="{{ "images/email-icon.png" | relURL }}" alt="Share via Email">
+	<span>Email</span>
+</a>
+<script src="{{ "js/share.js" | relURL }}"></script>

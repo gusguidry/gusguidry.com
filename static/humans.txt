@@ -1,0 +1,21 @@
+/* TEAM */
+  Author: August "Gus" Guidry
+  Contact: gus@gusguidry.com
+  Location: Louisiana, USA
+  Response time: variable
+  Enthusiasm: also variable
+
+/* SITE */
+  Built with: Hugo (static site generator, shockingly still alive)
+  Hosted on: GitHub Pages
+  Language: English
+  Last updated: check the git log, that's what it's there for
+
+/* STANDARDS */
+  HTML: yes, roughly
+  CSS: yes, with regrets
+  JavaScript: as little as possible
+  Accessibility: trying
+
+/* COLOPHON */
+  gusguidry.com/colophon/

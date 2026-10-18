@@ -1,0 +1,26 @@
+{{define "main"}}
+
+{{.Content}}
+
+{{- $pages := where .Site.RegularPages "Section" "posts" -}}
+{{- $byYear := $pages.GroupByDate "2006" -}}
+<div class="archive-list">
+  {{- range $byYear -}}
+  <h2 class="archive-year">{{ .Key }}</h2>
+  <ul class="post-list">
+    {{- range .Pages -}}
+    <li class="post-list-item">
+      <div class="post-list-main">
+        <a class="post-list-title" href="{{ .RelPermalink }}">{{ .Title | title }}</a>
+        {{ if .Description }}<p class="post-list-desc">{{ .Description }}</p>{{ end }}
+      </div>
+      <div class="post-list-meta">
+        {{ if not .Date.IsZero }}<time>{{ time.Format "Jan 2" .Date }}</time>{{ end }}
+      </div>
+    </li>
+    {{- end -}}
+  </ul>
+  {{- end}}
+</div>
+
+{{end}}

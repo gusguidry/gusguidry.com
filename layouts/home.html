@@ -1,0 +1,39 @@
+{{ define "main" }}
+{{/* Front page: a short welcome, the newest post as the lead story, then the next few headlines. */}}
+{{ $posts := where site.RegularPages "Section" "posts" }}
+
+<div class="front-welcome">
+{{ .Content }}
+</div>
+
+{{ with index $posts 0 }}
+<section class="front-lead">
+  <p class="front-kicker">{{ T "front-latest" }}</p>
+  <h2 class="front-lead-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+  {{ with .Description }}<p class="front-lead-deck">{{ . }}</p>{{ end }}
+  <p class="front-lead-dateline">
+    {{ if not .Date.IsZero }}<time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time>&thinsp;·&thinsp; {{ end }}{{ T "reading-time" .ReadingTime }}
+  </p>
+  <div class="front-lead-excerpt">{{ replaceRE `(?s)<h[1-6][^>]*>.*?</h[1-6]>` "" .Summary | safeHTML }}</div>
+  <p class="front-continue"><a href="{{ .RelPermalink }}">{{ T "front-continue" | title }} →</a></p>
+</section>
+{{ end }}
+
+{{ with after 1 $posts | first 5 }}
+<section class="front-more">
+  <h2 class="front-section-head">{{ T "front-also" }}</h2>
+  <ul class="post-list">
+    {{ range . }}
+    <li class="post-list-item">
+      <div class="post-list-main">
+        <a class="post-list-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
+        {{ with .Description }}<p class="post-list-desc">{{ . }}</p>{{ end }}
+      </div>
+      <div class="post-list-meta">{{ if not .Date.IsZero }}<time>{{ time.Format "Jan 2006" .Date }}</time>{{ end }}</div>
+    </li>
+    {{ end }}
+  </ul>
+  <p class="front-all"><a href="{{ "/posts/" | relLangURL }}">{{ T "front-all" | title }} →</a></p>
+</section>
+{{ end }}
+{{ end }}

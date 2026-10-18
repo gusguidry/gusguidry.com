@@ -1,0 +1,21 @@
+{{define "main"}}
+<p>This page doesn't exist.</p>
+<pre style="font-size:0.8em;opacity:0.6;line-height:1.6">
+ERROR    404: page not found
+STATUS   the URL you followed led here, which is nowhere
+CAUSE    broken link / typo / content moved / hubris
+ACTION   <a href="/">go back to the index</a> and try again
+ELAPSED  <span id="elapsed">0 seconds</span> and counting
+</pre>
+<p>If you got here by following a link on this site, that's a bug. <a href="{{ .Site.Params.githubRepo }}" target="_blank" rel="noopener noreferrer">You know what to do.</a></p>
+<script>
+(function() {
+  var start = Date.now();
+  var el = document.getElementById('elapsed');
+  setInterval(function() {
+    var s = Math.floor((Date.now() - start) / 1000);
+    el.textContent = s + (s === 1 ? ' second' : ' seconds');
+  }, 1000);
+})();
+</script>
+{{end}}

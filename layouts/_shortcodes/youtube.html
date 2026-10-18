@@ -1,0 +1,44 @@
+{{- /*
+  YouTube embed — overrides Hugo's built-in `youtube` shortcode.
+
+  Usage:
+    {{< youtube xGtUjTM6hd0 >}}
+    {{< youtube id="xGtUjTM6hd0" title="What the video is" caption="Set beneath in small caps" start="90" >}}
+
+  `id` also accepts a full youtube.com / youtu.be URL.
+  Uses youtube-nocookie.com and loads lazily, so nothing is fetched from
+  YouTube until the reader scrolls near it.
+*/ -}}
+{{- $raw := "" -}}
+{{- if .IsNamedParams -}}
+  {{- $raw = .Get "id" -}}
+{{- else -}}
+  {{- $raw = .Get 0 -}}
+{{- end -}}
+{{- if not $raw -}}
+  {{- errorf "youtube shortcode: missing video id in %s" .Position -}}
+{{- end -}}
+{{- $id := $raw -}}
+{{- with findRESubmatch `(?:v=|youtu\.be/|embed/|shorts/|live/)([A-Za-z0-9_-]{11})` $raw 1 -}}
+  {{- $id = index (index . 0) 1 -}}
+{{- end -}}
+{{- $title := "YouTube video" -}}
+{{- $caption := "" -}}
+{{- $start := "" -}}
+{{- if .IsNamedParams -}}
+  {{- $title = .Get "title" | default $title -}}
+  {{- $caption = .Get "caption" -}}
+  {{- $start = .Get "start" -}}
+{{- end -}}
+{{- $src := printf "https://www.youtube-nocookie.com/embed/%s?rel=0" $id -}}
+{{- with $start }}{{ $src = printf "%s&start=%v" $src . }}{{ end -}}
+<figure class="video-embed">
+	<div class="video-frame">
+		<iframe src="{{ $src }}" title="{{ $title }}" loading="lazy"
+			allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+			referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+	</div>
+	{{- with $caption }}
+	<figcaption>{{ . | markdownify }}</figcaption>
+	{{- end }}
+</figure>

@@ -1,0 +1,49 @@
+<header class="masthead">
+
+  <!-- The wordmark -->
+  {{ $founded := int (.Site.Params.founded | default 1887) }}
+  <a class="masthead-title" href="{{ "/" | relLangURL }}">Gus Guidry</a>
+  <p class="masthead-motto">N&#333;men est &#333;men</p>
+  <p class="masthead-established">Established {{ partial "roman.html" $founded }}</p>
+
+  <hr class="masthead-rule">
+
+  <!-- Colophon: volume · dateline · edition, in archival small caps.
+       Volume = years in print since founding; No. = posts published to date. -->
+  <div class="masthead-colophon">
+    <span>Vol.&nbsp;{{ add (sub now.Year $founded) 1 }}</span>
+    <span class="center">{{ now.Format "Monday, 2 January 2006" }}</span>
+    <span>No.&nbsp;{{ len (where .Site.RegularPages "Section" "posts") }}</span>
+  </div>
+
+  <hr class="masthead-rule masthead-rule--double">
+
+  <!-- Navigation -->
+  <nav aria-label="Primary">
+		<a href="{{ "/" | relLangURL }}">{{ T "home" | title }}</a>
+    <a href="{{ "/posts/" | relLangURL }}">{{ T "posts" | title }}</a>
+    <a href="{{ "/about/" | relLangURL }}">{{ T "nav-about" | title }}</a>
+    <a href="{{ "/now/" | relLangURL }}">{{ T "nav-now" | title }}</a>
+    <a href="{{ "/faq/" | relLangURL }}">{{ T "nav-faq" }}</a>
+    {{ if .IsTranslated }}
+    {{ range .Translations }}
+    <a href="{{ .RelPermalink }}">{{ .Language.Label | title }}</a>
+    {{ end }}
+    {{ end }}
+
+    <button class="search-toggle" id="search-toggle"
+      aria-expanded="false" aria-controls="search-panel"
+      data-open="{{ T "search" | title }}" data-close="{{ T "close" | title }}">{{ T "search" | title }}</button>
+    <button class="theme-toggle" id="theme-toggle"
+      data-label="{{ T "theme-label" }}" data-auto="{{ T "theme-auto" }}"
+      data-light="{{ T "theme-light" }}" data-dark="{{ T "theme-dark" }}">{{ T "theme-label" }}{{ T "theme-auto" }}</button>
+  </nav>
+
+  <hr class="masthead-rule">
+
+  <!-- Collapsible drawers -->
+  <div class="search-panel collapsed" id="search-panel">
+    <div id="pagefind-search"></div>
+  </div>
+
+</header>

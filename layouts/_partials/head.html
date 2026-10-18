@@ -1,0 +1,82 @@
+<head>
+  <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title | title }} &mdash; {{ .Site.Title }}{{ end }}</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ with .Summary }}{{ . | plainify | truncate 160 }}{{ else }}{{ .Site.Params.defaultDescription }}{{ end }}{{ end }}">
+  <meta name="keywords" content="{{ if .Params.keywords }}{{ delimit .Params.keywords ", " }}{{ if .Params.tags }}, {{ delimit .Params.tags ", " }}{{ end }}{{ else if .Params.tags }}{{ delimit .Params.tags ", " }}{{ end }}">
+
+  <meta name="generator" content="Hugo and bad decisions">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="{{ .Title | title }}">
+  <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ with .Summary }}{{ . | plainify | truncate 160 }}{{ else }}{{ .Site.Params.defaultDescription }}{{ end }}{{ end }}">
+  <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+  <meta property="og:url" content="{{ .Permalink }}">
+  <meta property="og:image" content="{{ "images/repository-open-graph-template.png" | absURL }}">
+  {{ if .IsPage }}
+  <meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+  <meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">
+  {{ end }}
+
+  <!-- Feeds (autodiscovery) -->
+  {{ with site.Home.OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" href="{{ .Permalink }}" title="{{ site.Title }} (RSS)">{{ end }}
+  {{ with site.Home.OutputFormats.Get "atom" }}<link rel="alternate" type="application/atom+xml" href="{{ .Permalink }}" title="{{ site.Title }} (Atom)">{{ end }}
+
+  <!-- IndieWeb / Webmentions -->
+  <link rel="webmention" href="https://webmention.io/gusguidry.com/webmention">
+  <link rel="pingback" href="https://webmention.io/gusguidry.com/xmlrpc">
+  <link rel="me" href="https://github.com/gusguidry">
+  <link rel="me" href="https://x.com/gusguidry">
+  <link rel="author" href="/humans.txt">
+
+  <!--
+    Fonts — the one sanctioned indulgence. EB Garamond for running text,
+    Cormorant Garamond for the masthead and headings. Both carry true small
+    caps and old-style figures in their GSUB tables (see main.css features).
+    Served here from Google Fonts; to go fully self-hosted, drop the WOFF2
+    into /static/fonts and swap this link for @font-face. See README.
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,800;1,400;1,500&display=swap" rel="stylesheet">
+
+{{ $styles := resources.Get "css/main.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $styles.Permalink }}" integrity="{{ $styles.Data.Integrity }}" media="all">
+  {{ $copyCodeStyles := resources.Get "css/copy-code.css" | minify }}
+  <link rel="stylesheet" href="{{ $copyCodeStyles.Permalink }}" media="screen">
+  {{ $citeStyles := resources.Get "css/cite.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $citeStyles.Permalink }}" integrity="{{ $citeStyles.Data.Integrity }}" media="screen">
+
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'auto';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    })();
+  </script>
+
+  <!-- Tab title change on blur -->
+  <script>
+    (function() {
+      const original = document.title;
+      const away = ['still here...', 'you left mid-sentence', 'the page misses you', 'come back'];
+      let msg = away[Math.floor(Math.random() * away.length)];
+      document.addEventListener('visibilitychange', function() {
+        document.title = document.hidden ? msg : original;
+      });
+    })();
+  </script>
+
+  <!-- Console easter egg -->
+  <script>
+    (function() {
+      const s = 'font-size:1.1em;font-weight:bold;';
+      const d = 'color:#888;font-size:0.9em;';
+      console.log('%cHi.', s);
+      console.log('%cYou opened DevTools on a personal blog.\nWe are the same kind of person.', d);
+      console.log('%c→ Source: https://github.com/gusguidry/gusguidry.com', d);
+      console.log('%c→ Built with Hugo and bad decisions.', d);
+    })();
+  </script>
+
+  <noscript><style>.js-only{display:none}</style></noscript>
+</head>

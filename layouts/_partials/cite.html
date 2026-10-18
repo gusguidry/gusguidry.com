@@ -1,0 +1,71 @@
+{{- $authorLast := "Guidry" -}}
+{{- $authorFirst := "Gus" -}}
+{{- $title := .Title -}}
+{{/* Titles that end in their own punctuation shouldn't get a second period ("Rules.."). */}}
+{{- $titleP := $title -}}
+{{- if not (findRE `[.!?]$` $title) -}}{{- $titleP = printf "%s." $title -}}{{- end -}}
+{{- $siteName := "Gus Guidry" -}}
+{{- $url := .Permalink -}}
+{{- $retrieved := now.Format "January 2, 2006" -}}
+{{- $retrievedISO := now.Format "2006-01-02" -}}
+
+{{/* Use the publish date; fall back to last-modified; otherwise cite as undated (n.d.). */}}
+{{- $d := .Date -}}
+{{- if $d.IsZero -}}{{- $d = .Lastmod -}}{{- end -}}
+{{- $hasDate := not $d.IsZero -}}
+
+{{- $apaDate := "n.d." -}}
+{{- $mlaDate := "" -}}
+{{- $chiDate := "n.d." -}}
+{{- $year := "nd" -}}
+{{- if $hasDate -}}
+  {{- $apaDate = $d.Format "2006, January 2" -}}
+  {{- $mlaDate = printf "%s, " ($d.Format "2 January 2006") -}}
+  {{- $chiDate = printf "%s." ($d.Format "January 2, 2006") -}}
+  {{- $year = $d.Format "2006" -}}
+{{- end -}}
+
+{{/* APA: Guidry, G. (2024, June 20). Title. Gus Guidry. https://... */}}
+{{- $apa := printf "%s, G. (%s). %s %s. %s" $authorLast $apaDate $titleP $siteName $url -}}
+
+{{/* MLA: Guidry, Gus. "Title." Gus Guidry, 20 June 2024, https://... */}}
+{{- $mla := printf "%s, %s. \"%s\" %s, %s%s" $authorLast $authorFirst $titleP $siteName $mlaDate $url -}}
+
+{{/* Chicago: Guidry, Gus. "Title." Gus Guidry. June 20, 2024. https://... */}}
+{{- $chicago := printf "%s, %s. \"%s\" %s. %s %s" $authorLast $authorFirst $titleP $siteName $chiDate $url -}}
+
+{{/* BibTeX (biblatex @online). Double braces protect the title's capitalization. */}}
+{{- $citeKey := printf "guidry%s-%s" $year (.Title | anchorize) -}}
+{{- $bibYear := "" -}}
+{{- if $hasDate -}}{{- $bibYear = printf "  year    = {%s},\n" $year -}}{{- end -}}
+{{- $bibtex := printf "@online{%s,\n  author  = {Guidry, Gus},\n  title   = {{%s}},\n%s  url     = {%s},\n  urldate = {%s}\n}" $citeKey $title $bibYear $url $retrievedISO -}}
+
+<section class="cite-section" aria-label="Cite this page">
+  <details class="cite-details">
+    <summary class="cite-summary">cite this page</summary>
+    <div class="cite-body">
+      <div class="cite-tabs" role="tablist">
+        <button class="cite-tab active" role="tab" aria-selected="true" data-target="apa">APA</button>
+        <button class="cite-tab" role="tab" aria-selected="false" data-target="mla">MLA</button>
+        <button class="cite-tab" role="tab" aria-selected="false" data-target="chicago">Chicago</button>
+        <button class="cite-tab" role="tab" aria-selected="false" data-target="bibtex">BibTeX</button>
+      </div>
+      <div class="cite-panels">
+        <div class="cite-panel active" id="cite-apa" role="tabpanel">
+          <p class="cite-text" data-citation="{{ $apa }}">{{ $apa }}</p>
+        </div>
+        <div class="cite-panel" id="cite-mla" role="tabpanel">
+          <p class="cite-text" data-citation="{{ $mla }}">{{ $mla }}</p>
+        </div>
+        <div class="cite-panel" id="cite-chicago" role="tabpanel">
+          <p class="cite-text" data-citation="{{ $chicago }}">{{ $chicago }}</p>
+        </div>
+        <div class="cite-panel" id="cite-bibtex" role="tabpanel">
+          <pre class="cite-text cite-code">{{ $bibtex }}</pre>
+        </div>
+      </div>
+      <button class="cite-copy-btn" type="button">copy citation</button>
+      <p class="cite-note">Retrieved {{ $retrieved }}.</p>
+    </div>
+  </details>
+</section>

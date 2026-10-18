@@ -1,0 +1,112 @@
+<!--
+   _____ _   _  _____    _____       _     _
+  / ____| | | |/ ____|  / ____|     (_)   | |
+ | |  __| | | | (___   | |  __ _   _ _  __| |_ __ _   _
+ | | |_ | | | |\___ \  | | |_ | | | | |/ _` | '__| | | |
+ | |__| | |_| |____) | | |__| | |_| | | (_| | |  | |_| |
+  \_____|\___/|_____/   \_____|\__,_|_|\__,_|_|   \__, |
+                                                    __/ |
+  if you're reading this, you're the target demo.  |___/
+-->
+
+<footer>
+
+  <nav class="footer-nav">
+    <div class="footer-nav-group">
+      <h4>{{ T "nav-explore" }}</h4>
+      <a href="{{ "now/" | relLangURL }}">{{ T "nav-now" }}</a>
+      <a href="{{ "about/" | relLangURL }}">{{ T "nav-about" }}</a>
+      <a href="{{ "colophon/" | relLangURL }}">{{ T "nav-colophon" }}</a>
+      <a href="{{ "uses/" | relLangURL }}">{{ T "nav-uses" }}</a>
+      <a href="{{ "contact/" | relLangURL }}">{{ T "contact" | title }}</a>
+      <a href="{{ "support/" | relLangURL }}">{{ T "nav-support" }}</a>
+    </div>
+    <div class="footer-nav-group">
+      <h4>{{ T "nav-read" }}</h4>
+      <a href="{{ "posts/" | relLangURL }}">{{ T "posts" | title }}</a>
+      <a href="{{ "archive/" | relLangURL }}">{{ T "nav-archive" }}</a>
+      <a href="{{ "tags/" | relLangURL }}">{{ T "tags" | title }}</a>
+      <a href="{{ "links/" | relLangURL }}">{{ T "nav-links" }}</a>
+      <a href="{{ "subscribe/" | relLangURL }}">{{ T "nav-subscribe" }}</a>
+    </div>
+    <div class="footer-nav-group">
+      <h4>{{ T "connect" | title }}</h4>
+      <div class="social-icons">
+        <a href="{{ "subscribe/" | relLangURL }}" title="RSS">
+          <img class="social-icon" src="{{ "images/rss.svg" | relURL }}" alt="RSS">
+        </a>
+        <a href="{{ "subscribe/" | relLangURL }}" title="Atom">
+          <img class="social-icon" src="{{ "images/atom.svg" | relURL }}" alt="Atom">
+        </a>
+        <a href="https://github.com/gusguidry" title="GitHub" rel="noopener noreferrer" target="_blank">
+          <img class="social-icon" src="{{ "images/github.svg" | relURL }}" alt="GitHub">
+        </a>
+        <a href="https://x.com/gusguidry" title="X" rel="noopener noreferrer" target="_blank">
+          <img class="social-icon" src="{{ "images/x.svg" | relURL }}" alt="X">
+        </a>
+        <a href="https://www.youtube.com/@gusguidry" title="YouTube" rel="noopener noreferrer" target="_blank">
+          <img class="social-icon" src="{{ "images/youtube.svg" | relURL }}" alt="YouTube">
+        </a>
+        <a href="https://music.apple.com/profile/gusguidry" title="Apple Music" rel="noopener noreferrer" target="_blank">
+          <img class="social-icon" src="{{ "images/applemusic.svg" | relURL }}" alt="Apple Music">
+        </a>
+        <a href="https://steamcommunity.com/id/gusguidry" title="Steam" rel="noopener noreferrer" target="_blank">
+          <img class="social-icon" src="{{ "images/steam.svg" | relURL }}" alt="Steam">
+        </a>
+        <a href="https://trakt.tv/users/gusguidry" title="Trakt" rel="noopener noreferrer" target="_blank">
+          <img class="social-icon" src="{{ "images/trakt.svg" | relURL }}" alt="Trakt">
+        </a>
+        <a href="https://www.instagram.com/gusguidry" title="Instagram" rel="noopener noreferrer" target="_blank">
+          <img class="social-icon" src="{{ "images/instagram.svg" | relURL }}" alt="Instagram">
+        </a>
+        <a href="https://www.snapchat.com/add/gusguidry" title="Snapchat" rel="noopener noreferrer" target="_blank">
+          <img class="social-icon" src="{{ "images/snapchat.svg" | relURL }}" alt="Snapchat">
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <p class="contribute">
+    {{ with .File -}}
+      {{ T "found-mistake" }} <a href="{{ $.Site.Params.githubRepo }}/blob/master/content/{{ .Path }}" target="_blank" rel="noopener noreferrer">{{ T "page-open-source" }}</a> {{ T "you-know" }}
+    {{- else -}}
+      <a href="{{ .Site.Params.githubRepo }}" target="_blank" rel="noopener noreferrer">{{ T "site-open-source" }}</a> {{ T "patches-welcome" }}
+    {{- end }}
+  </p>
+  <hr />
+  <p class="copyright">{{ T "copyright" | title }} {{ dateFormat "2006" now }} &copy; Gus Guidry</p>
+
+  {{ partial "memento-mori.html" . }}
+
+  <p class="idle-msg" id="idle-msg" aria-hidden="true" style="display:none;text-align:center;font-size:0.8em;opacity:0;transition:opacity 1s ease;font-style:italic">still reading, or just forgot this tab was open?</p>
+  <script>
+  (function() {
+    if (!document.querySelector('.metadata')) return; // posts only
+    var msg = document.getElementById('idle-msg');
+    var timer;
+    var shown = false;
+    function resetTimer() {
+      clearTimeout(timer);
+      if (shown) return;
+      timer = setTimeout(function() {
+        msg.style.display = 'block';
+        setTimeout(function() { msg.style.opacity = '0.5'; }, 50);
+        shown = true;
+      }, 90000);
+    }
+    window.addEventListener('scroll', resetTimer, { passive: true });
+    resetTimer();
+  })();
+  </script>
+
+  <div class="print-only-msg" aria-hidden="true">You printed a webpage. {{ now.Format "2006" }}. Remarkable.</div>
+  <style>
+    .print-only-msg { display: none; }
+    @media print { .print-only-msg { display: block; text-align: center; margin: 2em 0; font-style: italic; font-size: 0.85em; opacity: 0.6; } }
+  </style>
+
+  {{ $copyCode := resources.Get "js/copy-code.js" | minify | fingerprint }}
+  <script src="{{ $copyCode.Permalink }}" integrity="{{ $copyCode.Data.Integrity }}"></script>
+  {{ $cite := resources.Get "js/cite.js" | minify | fingerprint }}
+  <script src="{{ $cite.Permalink }}" integrity="{{ $cite.Data.Integrity }}"></script>
+</footer>

@@ -1,0 +1,82 @@
+{
+  "posts": {
+    "cypherpunk-manifesto": {
+      "source_sha256": "10b40e1cd8c63173c5546d44683954ed037d25ccb3e6de610f3edf698db27c08",
+      "translated_at": "2026-10-11T19:05:48-05:00"
+    },
+    "harsh-but-not-fair-on-silksong": {
+      "source_sha256": "b0e52ce04833e1964c11c3f7de498593244739cdfac926b0853f7dd8bf49c730",
+      "translated_at": "2026-10-11T19:05:48-05:00"
+    },
+    "meat-is-mid": {
+      "source_sha256": "36a0f390bca2e83932bdfae9ac6fea786de70f0d8cae704634072d9aedc32a11",
+      "translated_at": "2026-10-18T12:49:56+00:00"
+    },
+    "read-the-book-first-read-the-manga-first-i-dont-make-the-rules": {
+      "source_sha256": "2f5075dce172b869ba39e3b31f0d5415f945f3d3b24d60b34e114d1cd7602153",
+      "translated_at": "2026-10-11T19:05:48-05:00"
+    },
+    "rimworld-2-is-coming-probably": {
+      "source_sha256": "a7517976839975d198b65336ea8dd3496bc3fdd94adba74095d1d74583187e73",
+      "translated_at": "2026-10-17T17:20:08-05:00"
+    }
+  },
+  "pages": {
+    "_index.en.md": {
+      "source_sha256": "85fc86d45bb742ad2c3b36fb2523f7e0f7ebbc59a909ec26cd47501a0b18fbb7",
+      "translated_at": "2026-10-17T17:20:08-05:00",
+      "note": "baselined from pre-existing hand-maintained translation"
+    },
+    "about.en.md": {
+      "source_sha256": "33ae6a46dd1a89c99f416c8e34c2f6216de04079d762b4c67f22bee26759f9df",
+      "translated_at": "2026-10-17T17:20:08-05:00",
+      "note": "baselined from pre-existing hand-maintained translation"
+    },
+    "archive.en.md": {
+      "source_sha256": "b3da77bcd10bd9f2a5050418674f2c2fc5028b4aeb4a3b91212525ea0cee7afb",
+      "translated_at": "2026-10-17T17:20:08-05:00"
+    },
+    "categories/fashion/_index.en.md": {
+      "source_sha256": "15d09babbf913fd5e2bce12357761e385ac75b2a8a7342e4197ab05d64f5e812",
+      "translated_at": "2026-10-18T12:49:56+00:00"
+    },
+    "categories/fitness/_index.en.md": {
+      "source_sha256": "854272ecc6e93f9a24db7f81d3c375a99458ba3bcee91130270ce6da07debc09",
+      "translated_at": "2026-10-18T12:49:56+00:00"
+    },
+    "colophon.en.md": {
+      "source_sha256": "3358dcfb2c910fb600c226187b04485c1fe29a8c02246644787db6a858b43d7d",
+      "translated_at": "2026-10-17T17:20:08-05:00",
+      "note": "baselined from pre-existing hand-maintained translation"
+    },
+    "contact.en.md": {
+      "source_sha256": "8dbb96e748cf71706668f4f368c4057b04e8588b20cae89616843d5276925d47",
+      "translated_at": "2026-10-17T17:20:08-05:00",
+      "note": "baselined from pre-existing hand-maintained translation"
+    },
+    "faq.en.md": {
+      "source_sha256": "ee117f946609e1f71ef73dd72bc2e69998f9d245a441ca1f0f12c5a08f1d3829",
+      "translated_at": "2026-10-17T17:20:08-05:00"
+    },
+    "links.en.md": {
+      "source_sha256": "9881570030a8a4d436ae85445b91d12e7772b71a60f0eee9ccd529c2cd8d2500",
+      "translated_at": "2026-10-17T17:20:08-05:00",
+      "note": "baselined from pre-existing hand-maintained translation"
+    },
+    "now.en.md": {
+      "source_sha256": "ba791c08f634b795e5a58496bc3ff68d85510919b26eca7d9654952d378c1967",
+      "translated_at": "2026-10-17T17:20:08-05:00",
+      "note": "baselined from pre-existing hand-maintained translation"
+    },
+    "subscribe.en.md": {
+      "source_sha256": "769e2342c21cfee9a10b6f15e0231f071c782a413e9e382e15eda17ceb84a43c",
+      "translated_at": "2026-10-17T17:20:08-05:00",
+      "note": "baselined from pre-existing hand-maintained translation"
+    },
+    "support.en.md": {
+      "source_sha256": "7252d1b27b40c24049d73b363b711866fdc85e24d7be461a9420efe163074300",
+      "translated_at": "2026-10-17T17:20:08-05:00",
+      "note": "baselined from pre-existing hand-maintained translation"
+    }
+  }
+}

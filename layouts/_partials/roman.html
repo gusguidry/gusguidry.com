@@ -1,0 +1,20 @@
+{{- /*
+  roman.html — render an integer as Roman numerals.
+  Usage: {{ partial "roman.html" 2026 }} -> MMXXVI
+  Used for archival datelines and the masthead's year of establishment.
+*/ -}}
+{{- $n := int . -}}
+{{- $out := "" -}}
+{{- $vals := slice 1000 900 500 400 100 90 50 40 10 9 5 4 1 -}}
+{{- $syms := slice "M" "CM" "D" "CD" "C" "XC" "L" "XL" "X" "IX" "V" "IV" "I" -}}
+{{- if gt $n 0 -}}
+  {{- range $i, $v := $vals -}}
+    {{- $sym := index $syms $i -}}
+    {{- $count := int (math.Floor (div $n $v)) -}}
+    {{- if ge $count 1 -}}
+      {{- range seq $count -}}{{- $out = printf "%s%s" $out $sym -}}{{- end -}}
+    {{- end -}}
+    {{- $n = mod $n $v -}}
+  {{- end -}}
+{{- end -}}
+{{- $out -}}

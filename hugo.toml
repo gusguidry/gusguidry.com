@@ -1,0 +1,146 @@
+baseURL = "https://gusguidry.com/"
+defaultContentLanguage = "en"
+
+enableGitInfo = true
+hasCJKLanguage = true
+defaultContentLanguageInSubdir = false
+title = "Gus Guidry"
+uglyURLs = false
+relativeURLs = true
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+[params]
+githubRepo = "https://github.com/gusguidry/gusguidry.com"
+defaultDescription = "The personal site of Gus Guidry."
+# Masthead "year of establishment" — drives the Est. line and the Volume number.
+founded = 1995
+
+# Feeds: RSS at /feed.xml, Atom at /atom.xml (home only). Both carry posts only, full text.
+[mediaTypes."application/atom+xml"]
+  suffixes = ["xml"]
+
+[outputFormats.RSS]
+  baseName = "feed"
+
+[outputFormats.atom]
+  mediaType = "application/atom+xml"
+  baseName = "atom"
+  rel = "alternate"
+
+[outputs]
+  home = ["html", "rss", "atom"]
+
+[permalinks.page]
+  # Posts live at the site root: gusguidry.com/<slug>/
+  posts = "/:slug/"
+
+[markup]
+tableOfContents = { endLevel = 4 }
+
+[markup.goldmark]
+[markup.goldmark.renderer]
+unsafe = true # Allows HTML in Markdown if needed
+
+[markup.highlight]
+codeFences = true      # Highlight code within ``` fences
+guessSyntax = true     # Try to guess language if not specified
+lineNos = false        # Line numbers off (clutter on short snippets)
+noClasses = false      # Use CSS classes so themes can be swapped via media query
+
+[languages]
+[languages.en]
+disabled = false
+locale = "en"
+direction = "ltr"
+label = "english"
+weight = 1
+
+[languages.ja]
+disabled = false
+locale = "ja"
+direction = "ltr"
+label = "日本語"
+weight = 2
+
+[[menus.social]]
+name = "git"
+url = "https://git.gusguidry.com"
+weight = 1
+[[menus.social]]
+name = "X"
+url = "https://x.com/@gusguidry"
+weight = 4
+[[menus.social]]
+name = "YouTube"
+url = "https://www.youtube/@gusguidry"
+weight = 5
+[[menus.social]]
+name = "RSS"
+url = "https://gusguidry.com/feed.xml"
+weight = 6
+
+[languages.en.menus]
+[[languages.en.menus.main]]
+name = "home"
+url = "/"
+weight = 1
+[[languages.en.menus.main]]
+name = "posts"
+url = "/posts/"
+weight = 2
+[[languages.en.menus.main]]
+name = "tags"
+url = "/tags/"
+weight = 3
+#[[languages.en.menus.main]]
+#name = "about"
+#url = "/about/"
+#weight = 4
+#[[languages.en.menus.main]]
+#name = "live"
+#url = "/live/"
+#weight = 5
+[[languages.en.menus.main]]
+name = "archive"
+url = "/archive/"
+weight = 6
+
+[languages.ja.menus]
+[[languages.ja.menus.main]]
+name = "ホーム"
+url = "/ja/"
+weight = 1
+[[languages.ja.menus.main]]
+name = "投稿"
+url = "/ja/posts/"
+weight = 2
+[[languages.ja.menus.main]]
+name = "タグ"
+url = "/ja/tags/"
+weight = 3
+#[[languages.ja.menus.main]]
+#name = "自己紹介"
+#url = "/ja/about/"
+#weight = 4
+#[[languages.ja.menus.main]]
+#name = "生放送"
+#url = "/ja/live/"
+#weight = 5
+[[languages.ja.menus.main]]
+name = "アーカイブ"
+url = "/ja/archive/"
+weight = 6
+
+# Drafts live in drafts/ (git-ignored, never pushed) and are mounted into
+# content/ so `hugo server -D` still previews them locally. On any machine
+# without a drafts/ folder (CI, a fresh clone) Hugo simply skips the mount.
+[module]
+  [[module.mounts]]
+    source = "content"
+    target = "content"
+  [[module.mounts]]
+    source = "drafts"
+    target = "content"

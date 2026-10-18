@@ -1,0 +1,17 @@
+{{- /* /random/ — sends the reader to a random post. Same pool as the ✦ button. */ -}}
+{{- $urls := slice -}}{{- range where site.RegularPages "Section" "posts" -}}{{- $urls = $urls | append .Permalink -}}{{- end -}}
+<!DOCTYPE html>
+<html lang="{{ site.Language.Locale }}">
+<head>
+<title>Random post — {{ site.Title }}</title>
+<meta name="robots" content="noindex">
+<meta charset="utf-8">
+<script>
+  (function () {
+    var posts = {{ $urls | jsonify | safeJS }};
+    if (posts.length) location.replace(posts[Math.floor(Math.random() * posts.length)]);
+  })();
+</script>
+</head>
+<body><noscript><p>Randomness requires JavaScript. Here is <a href="{{ "posts/" | absURL }}">every post</a> instead; pick one with your eyes closed.</p></noscript></body>
+</html>
