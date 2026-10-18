@@ -16,3 +16,10 @@ bun run dev       # builds once, indexes search, starts the preview at localhost
 ## Found a mistake?
 
 Every page has a link to its source file. Patches are welcome; opinions are negotiable.
+
+## License
+
+Two licenses, one repo:
+
+- **Code** (layouts, styles, scripts, config): [MIT](LICENSE). Take the theme.
+- **Writing and original photos** (`content/`): [CC BY-NC-SA 4.0](CONTENT-LICENSE.md). Share it, translate it, or adapt it with credit, just don't sell it.

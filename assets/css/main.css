@@ -1130,6 +1130,17 @@ footer {
   letter-spacing: 0.12em;
 }
 
+.copyright a {
+  color: var(--ink-faint);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.copyright a:hover {
+  color: var(--accent);
+}
+
 /* Social icons */
 .social-icons {
 	display: flex;

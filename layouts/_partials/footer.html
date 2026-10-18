@@ -74,7 +74,14 @@
     {{- end }}
   </p>
   <hr />
-  <p class="copyright">{{ T "copyright" | title }} {{ dateFormat "2006" now }} &copy; Gus Guidry</p>
+  <p class="copyright">
+    {{ T "copyright" | title }} {{ dateFormat "2006" now }} &copy; Gus Guidry<br>
+    <span class="license">
+      {{ T "license-writing" | title }} <a href="{{ .Site.Params.githubRepo }}/blob/master/CONTENT-LICENSE.md" target="_blank" rel="noopener noreferrer license">CC BY-NC-SA 4.0</a>
+      &middot;
+      {{ T "license-code" | title }} <a href="{{ .Site.Params.githubRepo }}/blob/master/LICENSE" target="_blank" rel="noopener noreferrer license">MIT</a>
+    </span>
+  </p>
 
   {{ partial "memento-mori.html" . }}
 

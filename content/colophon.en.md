@@ -10,7 +10,7 @@ Both display and body type are Garamond: [Cormorant Garamond](https://fonts.goog
 
 The site participates in the [IndieWeb](https://indieweb.org). Webmentions are handled by [webmention.io](https://webmention.io).
 
-The source lives on [GitHub](https://github.com/gusguidry). It is licensed however I feel like at the time you're reading this.
+The source lives on [GitHub](https://github.com/gusguidry). It is licensed however I feel like at the time you're reading this. At the moment, that's [MIT](https://github.com/gusguidry/gusguidry.com/blob/master/LICENSE) for the code and [CC BY-NC-SA 4.0](https://github.com/gusguidry/gusguidry.com/blob/master/CONTENT-LICENSE.md) for the writing.
 
 The site is hosted statically. It does not track you. There are no cookies, no analytics, no ad network. If something breaks, I probably broke it.
 
