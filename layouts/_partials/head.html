@@ -7,6 +7,19 @@
 
   <meta name="generator" content="Hugo and bad decisions">
 
+  <!-- Canonical URL: aliases and translations all point search engines at one address per page -->
+  <link rel="canonical" href="{{ .Permalink }}">
+
+  <!-- Language alternates: pair each English page with its Japanese twin (and vice versa) -->
+  {{- if .IsTranslated }}
+  {{- range .AllTranslations }}
+  <link rel="alternate" hreflang="{{ .Language.Locale }}" href="{{ .Permalink }}">
+  {{- end }}
+  {{- range where .AllTranslations "Language.Lang" (index hugo.Sites 0).Language.Lang }}
+  <link rel="alternate" hreflang="x-default" href="{{ .Permalink }}">
+  {{- end }}
+  {{- end }}
+
   <!-- Open Graph -->
   <meta property="og:title" content="{{ .Title | title }}">
   <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ with .Summary }}{{ . | plainify | truncate 160 }}{{ else }}{{ .Site.Params.defaultDescription }}{{ end }}{{ end }}">
@@ -23,6 +36,31 @@
   {{- else }}
   <meta property="og:image" content="{{ "images/repository-open-graph-template.png" | absURL }}">
   {{- end }}
+  <!-- Structured data (JSON-LD): tells search engines who wrote what, and when -->
+  {{- $author := dict "@type" "Person" "name" site.Title "url" (index hugo.Sites 0).Home.Permalink }}
+  {{- if .IsHome }}
+  {{- $ld := dict "@context" "https://schema.org" "@type" "WebSite" "name" site.Title "url" .Permalink "inLanguage" .Language.Locale "description" (.Description | default site.Params.defaultDescription) "author" $author }}
+  <script type="application/ld+json">{{ $ld | jsonify | safeJS }}</script>
+  {{- else if and .IsPage (eq .Section "posts") }}
+  {{- $img := "images/repository-open-graph-template.png" | absURL }}
+  {{- with partial "post-image.html" . }}{{ $img = (.Fill (printf "1200x630 jpg q85 %s" ($.Params.imageCrop | default "smart" | title))).Permalink }}{{ end }}
+  {{- $ld := dict
+      "@context" "https://schema.org"
+      "@type" "BlogPosting"
+      "headline" .Title
+      "description" (.Description | default (.Summary | plainify | truncate 160))
+      "url" .Permalink
+      "mainEntityOfPage" .Permalink
+      "inLanguage" .Language.Locale
+      "datePublished" (.Date.Format "2006-01-02T15:04:05Z07:00")
+      "dateModified" (.Lastmod.Format "2006-01-02T15:04:05Z07:00")
+      "image" $img
+      "keywords" (delimit (.Params.tags | default slice) ", ")
+      "author" $author
+      "publisher" $author }}
+  <script type="application/ld+json">{{ $ld | jsonify | safeJS }}</script>
+  {{- end }}
+
   {{ if .IsPage }}
   <meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
   <meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">
